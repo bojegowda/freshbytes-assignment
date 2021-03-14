@@ -9,17 +9,15 @@ import {
 } from '../constants/userConstants';
 
 const initialState = {
-  name: "",
-  username: "",
-  password: "",
-  dob: ""
+  userInfo: [],
+  loading: false
 }
 
 export const userRegisterReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return {
-        loading: false, userInfo: action.payload
+        loading: false, userInfo: [...state.userInfo, action.payload]
       };
 
     default:
@@ -27,23 +25,23 @@ export const userRegisterReducer = (state = initialState, action) => {
   }
 };
 
+const defaultSignInState = {
+  isLoggedIn: false,
+  loggedInUser: null
+}
 
-export const userSigninReducer = (state = {}, action) => {
+export const userSigninReducer = (state = defaultSignInState, action) => {
   switch (action.type) {
-    case USER_SIGNIN_REQUEST:
-      return {
-        loading: true
-      };
     case USER_SIGNIN_SUCCESS:
       return {
-        loading: false, userInfo: action.payload
+        isLoggedIn: true, loggedInUser: action.payload
       };
     case USER_SIGNIN_FAIL:
       return {
-        loading: false, error: action.payload
+        isLoggedIn: false, loggedInUser: null, error: action.payload
       };
     case USER_SIGNOUT:
-      return {};
+      return defaultSignInState;
     default:
       return state;
   }

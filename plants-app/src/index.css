@@ -203,3 +203,18 @@ img.large {
   margin: 1rem 0;
   /* display: block; */
 }
+
+.plants-list tbody td {
+  text-align: center;
+}
+
+.list-name {
+  border: 2px solid black;
+  border-radius: 2px;
+  padding: 2px 10px 2px 1px;
+}
+
+.highlight {
+  font-weight: bold;
+  text-decoration: underline;
+}

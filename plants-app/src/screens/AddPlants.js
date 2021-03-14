@@ -1,37 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { register } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
+import { register } from "../actions/plantsActions";
 import MessageBox from "../components/MessageBox";
 
-export default function RegisterScreen(props) {
+export default function AddPlants(props) {
   const [name, setName] = useState("");
   const [description, setDesription] = useState("");
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
-
-  // const plantsRegister = useSelector((state) => state.plantsRegister);
-  const { plantsInfo, loading, error } = "";
+  const plantsRegister = useSelector((state) => state.plants);
+  const { plantsInfo, loading, error } = plantsRegister;
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(register(name, description));
   };
   useEffect(() => {
     if (plantsInfo) {
-      props.history.push(redirect);
+      // props.history.push(redirect);
     }
-  }, [props.history, redirect, plantsInfo]);
+  }, [props.history, plantsInfo]);
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1> ADD PLANTS </h1>{" "}
         </div>{" "}
-        {loading && <LoadingBox> </LoadingBox>}{" "}
         {error && <MessageBox variant="danger"> {error} </MessageBox>}{" "}
         <div>
           <label htmlFor="name"> Name </label>{" "}
@@ -59,6 +54,9 @@ export default function RegisterScreen(props) {
             Add Plant{" "}
           </button>{" "}
         </div>{" "}
+        <div>
+          <Link to={`/plants`}>Go to plants list?</Link>
+        </div>
       </form>{" "}
     </div>
   );

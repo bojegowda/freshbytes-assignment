@@ -1,22 +1,24 @@
 import {
-  PLANTS_REGISTER_FAIL,
   PLANTS_REGISTER_REQUEST,
-  PLANTS_REGISTER_SUCCESS,
+  PLANTS_GET_REQUEST,
 
 } from '../constants/plantsConstants';
 
 const initialState = {
-  name: "",
-  description: ""
+  plantsInfo: []
 }
 
-export const plantsRegisterReducer = (state = initialState, action) => {
+export const plantsReducer = (state = initialState, action) => {
   switch (action.type) {
     case PLANTS_REGISTER_REQUEST:
       return {
-        loading: false, userInfo: action.payload
+        loading: false, plantsInfo: [...state.plantsInfo, action.payload]
       };
-
+    case PLANTS_GET_REQUEST:
+      return {
+        loading: false,
+          plantsInfo: action.payload
+      };
     default:
       return state;
   }

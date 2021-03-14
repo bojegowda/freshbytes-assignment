@@ -6,6 +6,7 @@ import {
   USER_SIGNIN_FAIL,
   USER_SIGNOUT,
 } from "../constants/userConstants";
+import storage from "../storage";
 
 export const register = (name, username, password, dob) => async (dispatch) => {
   dispatch({
@@ -19,37 +20,33 @@ export const register = (name, username, password, dob) => async (dispatch) => {
   });
 };
 
-export const signin = (username, password) => async (dispatch) => {
-  dispatch({
-    type: USER_SIGNIN_REQUEST,
-    payload: {
-      username,
-      password,
-    },
-  });
-  try {
-    const { data } = await Axios.post("/api/users/signin", {
-      username,
-      password,
-    });
+export const signin = (userInfo, username, password) => (dispatch) => {
+  // find user details exist
+  // if founddispatch sign in success
+  // else signin fail
+  let user = userInfo.find(user => user.username === username && user.password === password);
+
+  if (user) {
     dispatch({
       type: USER_SIGNIN_SUCCESS,
-      payload: data,
+      payload: {
+        name: user.name,
+        username: user.username,
+        dob: user.dob
+      },
     });
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
+  } else {
     dispatch({
       type: USER_SIGNIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: "user details not found"
     });
   }
 };
+
 export const signout = () => (dispatch) => {
-  localStorage.removeItem("userInfo");
+  storage.session.removeItem("authenticatedUser");
   dispatch({
     type: USER_SIGNOUT,
+    payload: ""
   });
 };

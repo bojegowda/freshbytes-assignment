@@ -1,8 +1,7 @@
 import Axios from "axios";
 import {
   PLANTS_REGISTER_REQUEST,
-
-} from "../constants/userConstants";
+} from "../constants/plantsConstants";
 
 export const register = (name, description) => async (dispatch) => {
   dispatch({
