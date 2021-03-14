@@ -15,10 +15,10 @@ export default function SigninScreen(props) {
     : "/";
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { userInfo, loading, error } = userRegister;
+  const { userInfo, error } = userRegister;
 
   const userSignIn = useSelector((state) => state.userSignin);
-  const { isLoggedIn, loggedInUser } = userSignIn;
+  const { loggedInUser } = userSignIn;
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {

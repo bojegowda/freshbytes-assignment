@@ -9,11 +9,12 @@ export default function AddPlants(props) {
   const [description, setDesription] = useState("");
 
   const plantsRegister = useSelector((state) => state.plants);
-  const { plantsInfo, loading, error } = plantsRegister;
+  const { plantsInfo, error } = plantsRegister;
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
+
     dispatch(register(name, description));
   };
   useEffect(() => {

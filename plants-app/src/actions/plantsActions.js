@@ -1,4 +1,3 @@
-import Axios from "axios";
 import {
   PLANTS_REGISTER_REQUEST,
 } from "../constants/plantsConstants";

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { register } from "../actions/plantsActions";
-import MessageBox from "../components/MessageBox";
 import SuggestList from "../components/SuggestList";
 
 export default function PlantsList(props) {
   const [list, setList] = useState([]);
 
   const plantsRegister = useSelector((state) => state.plants);
-  const { plantsInfo, loading, error } = plantsRegister;
+  const { plantsInfo } = plantsRegister;
 
-  const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
     props.history.push("/addPlants");
@@ -62,36 +59,30 @@ export default function PlantsList(props) {
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div className="plants-list">
-          {list.length ? (
-            <>
-              <h1>AVAILABLE PLANTS </h1>
+          <h1>AVAILABLE PLANTS </h1>
 
-              <input id="list" label="Search" onChange={handleChange} />
-              {list.length ? (
-                <SuggestList list={list} handleSelection={searchByString} />
-              ) : null}
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody id="inputText">
-                  {plantsInfo.map((plants, index) => (
-                    <tr key={index + 1}>
-                      <td>{index + 1}</td>
-                      <td>{plants.name}</td>
-                      <td>{plants.description}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          ) : (
-            <h1>Plants List is epmty.... please add plants</h1>
-          )}
+          <input id="list" label="Search" onChange={handleChange} />
+          {list.length ? (
+            <SuggestList list={list} handleSelection={searchByString} />
+          ) : null}
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody id="inputText">
+              {plantsInfo.map((plants, index) => (
+                <tr key={index + 1}>
+                  <td>{index + 1}</td>
+                  <td>{plants.name}</td>
+                  <td>{plants.description}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div>

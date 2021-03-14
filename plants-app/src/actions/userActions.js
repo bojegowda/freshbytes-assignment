@@ -1,7 +1,5 @@
-import Axios from "axios";
 import {
   USER_REGISTER_REQUEST,
-  USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
   USER_SIGNIN_FAIL,
   USER_SIGNOUT,
